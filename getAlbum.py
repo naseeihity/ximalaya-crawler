@@ -63,8 +63,8 @@ payload = {
 
 ## 发送请求
 ## 获取返回值
-temp = True
 for albumId in albumIds:
+  temp = True
   data = []
   payload['albumId'] = albumId
   while temp:
