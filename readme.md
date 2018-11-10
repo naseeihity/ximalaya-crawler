@@ -7,7 +7,7 @@ contextlib.closing
 
 ## Usage
 
-输入对应专辑的url，自动爬去专辑内容到当前目录
+输入对应专辑（主播）的url，自动爬去专辑内容到当前目录
 
 ## 原理
 
@@ -17,3 +17,6 @@ contextlib.closing
 没有系统的学过python，基本都通过google来完成的。
 
 - [进度条](https://blog.csdn.net/supercooly/article/details/51046561)
+
+## TODO
+- [x] 按照主播来提取其所有音频
