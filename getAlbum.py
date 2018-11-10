@@ -5,6 +5,7 @@ musicArr = []
 base_url = 'https://www.ximalaya.com/revision/play/album'
 ## 用户输入url
 url = input("Please input the album input:")
+## 示例：观影风向标url
 # url = 'https://www.ximalaya.com/yingshi/232161/'
 
 ## 获取当前专辑的id
@@ -14,8 +15,7 @@ else:
   albumId = url.split('/')[-1]
 
 pageNum = 1
-pageSize_big = 1000
-pageSize = 3
+pageSize = 30
 sort = 0 ## 顺序
 ## 请求头
 header = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:57.0) Gecko/20100101 Firefox/57.0'}
@@ -24,19 +24,26 @@ payload = {
     'albumId': albumId,
     'pageNum': pageNum,
     'sort': sort,
-    'pageSize': pageSize_big
+    'pageSize': pageSize
 }
 
 ## 发送请求
-r = requests.get(base_url, params=payload, headers=header)
-
 ## 获取返回值
-res = r.json()
-
-if (res and res['ret'] == 200):
-  data = res['data']['tracksAudioPlay']
-else:
-  print('request failed!')
+temp = True
+data = []
+while temp:
+  r = requests.get(base_url, params=payload, headers=header)
+  res = r.json()
+  if (res and res['ret'] == 200):
+    data.extend(res['data']['tracksAudioPlay'])
+    if res['data']['hasMore']:
+      payload['pageNum'] += 1
+    else:
+      temp = False
+    
+  else:
+    print('request failed!')
+    temp = False
 
 albumName = data[0]['albumName']
 
