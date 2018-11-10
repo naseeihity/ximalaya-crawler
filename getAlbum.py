@@ -66,6 +66,7 @@ payload = {
 for albumId in albumIds:
   temp = True
   data = []
+  musicArr = []
   payload['albumId'] = albumId
   while temp:
     r = requests.get(base_url, params=payload, headers=header)
